@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>casino</title>
+</head>
+<body>
+    <form>
+        <div id="elements">
+            <div id="choices">
+                <div id="firstchoice">
+                    <select id="choix1">
+                        <option value="null">choisissez la parite</option>
+                        <option value="odd">pair</option>
+                        <option value="even">impair</option>
+                    </select>
+                </div>
+                <div id="second choice">
+                    <select id="choix2">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+
+                        <option value="9">9</option>
+
+                        <option value="10">10</option>
+
+                        <option value="11">11</option>
+
+                        <option value="12">12</option>
+                    
+
+                        <option value="13">13</option>
+
+                        <option value="14">14</option>
+
+                        <option value="15">15</option>
+
+                        <option value="16">16</option>
+
+                        <option value="17">17</option>
+
+                        <option value="18">18</option>
+
+                        <option value="19">19</option>
+
+                        <option value="20">20</option>
+
+                        <option value="21">21</option>
+
+                        <option value="22">22</option>
+
+                        <option value="23">23</option>
+
+                        <option value="24">24</option>
+
+                        <option value="25">25</option>
+
+                        <option value="26">26</option>
+
+                        <option value="27">27</option>
+
+                        <option value="28">28</option>
+
+                        <option value="29">29</option>
+
+                        <option value="30">30</option>
+
+                        <option value="31">31</option>
+
+                        <option value="32">32</option>
+
+                        <option value="33">33</option>
+
+                        <option value="34">34</option>
+
+                        <option value="35">35</option>
+
+                        <option value="36">36</option>
+
+                    </select>
+                </div>
+                <div id="go-button">
+                    <input type="button" name="go-button" value="GO">
+
+                </div>
+                <div id="bet">
+                    <input type="number" name="bet">
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+<script> 
+let debug = document.querySelectorAll('select');
+let choix1 = document.getElementById('choix1');
+let choix2 = document.getElementById('choix2');
+let goButton = document.querySelector('input[type="button"]');
+let numerotire,pari ;
+let portefeuille = 100;
+let pertes = 0; 
+for (let i = 0; i < 2; i++){
+    debug[i].addEventListener('change', function(){
+        if ((choix1.selectedIndex == 0 && choix2.selectedIndex != 0) || (choix2.selectedIndex == 0 && choix1.selectedIndex != 0)){
+            choix1.addEventListener('blur', function(){goButton.addEventListener('click', evenOdd)});
+            choix2.addEventListener('blur', function(){goButton.addEventListener('click', numbers);});
+        }
+        else{
+            alert('Veuillez faire un seul choix s\'\'il vous plait');
+            document.location = 'jeux.html';
+
+        }
+    })
+}
+function hasard(){
+return Math.floor(Math.random() * (36 - 1) + 1);
+}
+function evenOdd(){
+    numerotire = hasard();
+
+    pari = Bet()*1000;
+    if(numerotire%2 == 0 && choix1.selectedIndex == '2' ){
+        portefeuille+= pari*2;
+        alert('-vous gagnez ' + '' + pari * 2 + '' + ' CFA\n-Vous avez ' + '' + portefeuille + '' + ' CFA'); 
+    }
+    else if(!(numerotire%2 == 0) && choix1.selectedIndex == '1' ){
+        portefeuille += pari * 2;
+        alert('-vous gagnez '+ '' +pari*2+''+' CFA\n-Vous avez '+'' +portefeuille+ ''+' CFA');
+    }
+    else{
+        pertes += pari;
+        portefeuille-=pertes; 
+        alert('-Vous perdez '+ '' +pertes+ '' +' CFA\n-Vous avez '+ '' +portefeuille+ ''+ ' CFA');
+
+    }
+
+
+}
+function numbers(){
+    pari = Bet()*1000;
+    numerotire = hasard();
+    if(numerotire === parseInt(choix2.selectedIndex.value)){
+        portefeuille += pari * 35;
+        alert('-vous gagnez ' + '' + pari * 2 + '' + ' CFA\n-Vous avez ' + '' +portefeuille+ '' + ' CFA'); 
+    }
+    else{
+        pertes += pari;
+        portefeuille -= pertes; 
+        alert('-Vous perdez ' + '' + pertes + '' + ' CFA\n-Vous avez ' + '' +portefeuille+ '' + ' CFA');
+    }
+}
+function Bet(){
+    return parseFloat(document.querySelector('input[type="number"]').value);
+
+}
+
+
+  
+
+</script>
